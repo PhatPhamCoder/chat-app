@@ -4,7 +4,7 @@ import { FcAddImage } from "react-icons/fc";
 import { IoMdAttach } from "react-icons/io";
 import { AuthContext } from '../context/AuthContext';
 import { ChatContext } from '../context/ChatContext';
-import { arrayUnion, doc, Timestamp, updateDoc } from 'firebase/firestore';
+import { arrayUnion, doc, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore';
 import { v4 as uuid } from 'uuid';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { db, storage } from '../firebase';
@@ -46,7 +46,18 @@ const InputCustom = () => {
                     date: Timestamp.now(),
                 }),
             });
+
+            await updateDoc(doc(db, "userChats", data.user.uid), {
+                [data.chatId + ".lastMessage"]: {
+                    text,
+                },
+                [data.chatsId + ".date"]: serverTimestamp(),
+            });
         }
+
+
+        setText("");
+        setImg(null);
     };
 
     return (
@@ -55,6 +66,7 @@ const InputCustom = () => {
                 type="text"
                 placeholder='Type something.....'
                 onChange={(e) => setText(e.target.value)}
+                value={text}
             />
             <div className='send'>
                 <IoMdAttach className='fs-3' />
@@ -69,8 +81,9 @@ const InputCustom = () => {
                 </label>
                 <button
                     onClick={handleSend}
-                    style={{ outline: "none", border: "none", background: "transparent" }}>
-                    <FiSend className='fs-3' />
+                    style={{ outline: "none", border: "none", background: "transparent" }}
+                >
+                    Send
                 </button>
             </div>
         </div>
