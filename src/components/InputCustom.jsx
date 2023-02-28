@@ -1,27 +1,36 @@
 import React, { useContext, useState } from 'react';
-import { FiSend } from "react-icons/fi";
+// import { FiSend } from "react-icons/fi";
 import { FcAddImage } from "react-icons/fc";
 import { IoMdAttach } from "react-icons/io";
 import { AuthContext } from '../context/AuthContext';
 import { ChatContext } from '../context/ChatContext';
-import { arrayUnion, doc, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore';
-import { v4 as uuid } from 'uuid';
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import {
+    arrayUnion,
+    doc,
+    serverTimestamp,
+    Timestamp,
+    updateDoc
+} from 'firebase/firestore';
 import { db, storage } from '../firebase';
+import { v4 as uuid } from "uuid";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const InputCustom = () => {
     const [text, setText] = useState("");
     const [img, setImg] = useState(null);
+
     const { currentUser } = useContext(AuthContext);
     const { data } = useContext(ChatContext);
 
     const handleSend = async () => {
         if (img) {
             const storageRef = ref(storage, uuid());
+
             const uploadTask = uploadBytesResumable(storageRef, img);
+
             uploadTask.on(
                 (error) => {
-                    // setErr(true)
+                    //TODO:Handle Error
                 },
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
@@ -31,7 +40,7 @@ const InputCustom = () => {
                                 text,
                                 senderId: currentUser.uid,
                                 date: Timestamp.now(),
-                                img: downloadURL
+                                img: downloadURL,
                             }),
                         });
                     });
@@ -46,15 +55,21 @@ const InputCustom = () => {
                     date: Timestamp.now(),
                 }),
             });
-
-            await updateDoc(doc(db, "userChats", data.user.uid), {
-                [data.chatId + ".lastMessage"]: {
-                    text,
-                },
-                [data.chatsId + ".date"]: serverTimestamp(),
-            });
         }
 
+        await updateDoc(doc(db, "userChats", currentUser.uid), {
+            [data.chatId + ".lastMessage"]: {
+                text,
+            },
+            [data.chatId + ".date"]: serverTimestamp(),
+        });
+
+        await updateDoc(doc(db, "userChats", data.user.uid), {
+            [data.chatId + ".lastMessage"]: {
+                text,
+            },
+            [data.chatId + ".date"]: serverTimestamp(),
+        });
 
         setText("");
         setImg(null);
@@ -64,7 +79,7 @@ const InputCustom = () => {
         <div className='input'>
             <input
                 type="text"
-                placeholder='Type something.....'
+                placeholder="Type something..."
                 onChange={(e) => setText(e.target.value)}
                 value={text}
             />
@@ -87,7 +102,7 @@ const InputCustom = () => {
                 </button>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default InputCustom;

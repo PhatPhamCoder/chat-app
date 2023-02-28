@@ -14,11 +14,11 @@ const Login = () => {
 
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            navigate("/");
-        } catch (error) {
-            setErr(true)
+            navigate("/")
+        } catch (err) {
+            setErr(true);
         }
-    }
+    };
     return (
         <div className='formContainer'>
             <div className="formWrapper">

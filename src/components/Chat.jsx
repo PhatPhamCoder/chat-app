@@ -11,14 +11,19 @@ const Chat = () => {
     return (
         <div className="chat" style={{ height: "100vh" }}>
             <div className="chatInfo d-flex justify-content-between align-items-center" style={{ height: "50px" }}>
-                <span className='name-user'>{data.user?.displayName}</span>
+                <span className='name-user'>
+                    {data.user?.displayName}
+                </span>
                 <div className="chatIcons">
                     <AiOutlineUserAdd className='fs-2' />
                     <BsCameraVideo className='fs-2' />
                     <CiCircleMore className='fs-2' />
                 </div>
             </div>
-            <div className="d-flex justify-content-end flex-column" style={{ height: 'calc(100% - 56px)' }} >
+            <div
+                className="d-flex justify-content-end flex-column"
+                style={{ height: 'calc(100% - 56px)' }}
+            >
                 <Messages />
                 <InputCustom />
             </div>
@@ -26,4 +31,4 @@ const Chat = () => {
     )
 }
 
-export default Chat
+export default Chat;

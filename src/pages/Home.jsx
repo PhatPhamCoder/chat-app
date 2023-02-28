@@ -9,9 +9,7 @@ const Home = () => {
                 <Sidebar />
             </div>
             <div className='content'>
-                <div className=''>
-                    <Chat />
-                </div>
+                <Chat />
             </div>
         </div>
     )
