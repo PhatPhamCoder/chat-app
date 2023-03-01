@@ -5,6 +5,7 @@ import { BsCameraVideo } from "react-icons/bs";
 import Messages from './Messages';
 import InputCustom from './InputCustom';
 import { ChatContext } from '../context/ChatContext';
+
 const Chat = () => {
     const { data } = useContext(ChatContext);
 

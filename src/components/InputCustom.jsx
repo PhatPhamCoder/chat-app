@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
-// import { FiSend } from "react-icons/fi";
-import { FcAddImage } from "react-icons/fc";
+import { FiSend } from "react-icons/fi";
+import { BiImageAdd } from "react-icons/bi";
 import { IoMdAttach } from "react-icons/io";
 import { AuthContext } from '../context/AuthContext';
 import { ChatContext } from '../context/ChatContext';
@@ -15,12 +15,17 @@ import { db, storage } from '../firebase';
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
+
 const InputCustom = () => {
     const [text, setText] = useState("");
     const [img, setImg] = useState(null);
 
     const { currentUser } = useContext(AuthContext);
     const { data } = useContext(ChatContext);
+
+    const handleChange = (e) => {
+        setText(e.target.value)
+    }
 
     const handleSend = async () => {
         if (img) {
@@ -75,13 +80,20 @@ const InputCustom = () => {
         setImg(null);
     };
 
+    const handleKeyDown = (e) => {
+        if (e.code === "Enter") {
+            handleSend()
+        }
+    };
+
     return (
         <div className='input'>
             <input
                 type="text"
                 placeholder="Type something..."
-                onChange={(e) => setText(e.target.value)}
+                onChange={handleChange}
                 value={text}
+                onKeyDown={handleKeyDown}
             />
             <div className='send'>
                 <IoMdAttach className='fs-3' />
@@ -92,13 +104,14 @@ const InputCustom = () => {
                     onChange={(e) => setImg(e.target.files[0])}
                 />
                 <label htmlFor="file">
-                    <FcAddImage className='fs-3' />
+                    <BiImageAdd className='fs-3' />
                 </label>
                 <button
                     onClick={handleSend}
                     style={{ outline: "none", border: "none", background: "transparent" }}
+                    type="submit"
                 >
-                    Send
+                    <FiSend className='fs-3' style={{ color: "5e5ad3" }} />
                 </button>
             </div>
         </div>
