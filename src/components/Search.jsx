@@ -72,7 +72,9 @@ const Search = () => {
                     [combinedId + ".date"]: serverTimestamp(),
                 });
             }
-        } catch (err) { }
+        } catch (err) {
+            console.error(err)
+        }
 
         setUser(null);
         setUsername("")
@@ -89,7 +91,7 @@ const Search = () => {
                     value={username}
                 />
             </div>
-            {err && <span>User not found!</span>}
+            {err && <span>Không tìm thấy bạn!</span>}
             {user && (<div
                 className="userChat"
                 onClick={handleSelect}

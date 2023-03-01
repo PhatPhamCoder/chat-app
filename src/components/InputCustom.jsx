@@ -90,7 +90,7 @@ const InputCustom = () => {
         <div className='input'>
             <input
                 type="text"
-                placeholder="Type something..."
+                placeholder="Nhập tin nhắn ...."
                 onChange={handleChange}
                 value={text}
                 onKeyDown={handleKeyDown}

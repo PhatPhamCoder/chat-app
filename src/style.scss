@@ -87,6 +87,7 @@ body {
         background-color: #5e5ad3;
         height: 100vh;
         width: 20%;
+        position: relative;
 
         .navbar {
             background-color: #2f2d52;
@@ -96,17 +97,15 @@ body {
             padding: 10px;
             justify-content: space-between;
             color: #ddddf7;
-
-            @include tablet {
-                display: none;
-            }
-
+            position: relative;
 
             .logo {
                 font-weight: bold;
 
-                @include tablet {
-                    display: none;
+                @include mobile() {
+                    font-size: 10px;
+                    text-align: center;
+                    margin-left: 8px;
                 }
             }
 
@@ -117,16 +116,38 @@ body {
                     width: 24px;
                     border-radius: 50%;
                     object-fit: cover;
+
+                    @include mobile() {
+                        display: none;
+                    }
+                }
+
+                span {
+                    margin: 0 10px;
+
+                    @include mobile() {
+                        display: none;
+                    }
                 }
 
                 button {
                     background-color: #5d5b8d;
                     outline: none;
                     border-radius: 10px;
-                    color: white;
+                    color: #ddddf7;
                     border: none;
+                    font-size: 15px;
+                    font-weight: 700;
                     cursor: pointer;
                 }
+            }
+
+            @include mobile() {
+                position: absolute;
+                bottom: 0px;
+                font-size: 9px;
+                padding: 2px 10px;
+                margin-left: 0;
             }
         }
 
@@ -146,6 +167,7 @@ body {
                         color: white;
                     }
                 }
+
             }
         }
 
@@ -200,6 +222,10 @@ body {
                 p {
                     font-size: 14px;
                     color: lightgray;
+                }
+
+                @include mobile {
+                    display: none;
                 }
             }
         }

@@ -62,12 +62,12 @@ const Register = () => {
     return (
         <div div className='formContainer' >
             <div className="formWrapper">
-                <h2 className='logo'>Chat App</h2>
-                <span className='title'>Register</span>
+                <h2 className='logo'>PChat</h2>
+                <span className='title'>Đăng kí tài khoản</span>
                 <form onSubmit={handleSubmit}>
-                    <input required type="text" placeholder='display name' />
-                    <input required type="email" placeholder='email' />
-                    <input required type="password" placeholder='pasword' />
+                    <input required type="text" placeholder='Tên người dùng' />
+                    <input required type="email" placeholder='Email' />
+                    <input required type="password" placeholder='Mật khẩu' />
                     <input required style={{ display: "none" }} type="file" id="file" />
                     <label htmlFor="file" className='add-img d-flex align-items-center gap-3'>
                         <FcAddImage className='fs-1' />
@@ -76,7 +76,7 @@ const Register = () => {
                     <button className='btn btn-primary fw-bold'>Đăng ký</button>
                     {err && <span>Xảy ra sự cố</span>}
                 </form>
-                <p>You do have an account? <Link to="/login">Login</Link></p>
+                <p>Bạn đã có tài khoản rồi? <Link to="/login" className='text-decoration-none'>Đăng nhập</Link></p>
             </div>
         </div>
     )

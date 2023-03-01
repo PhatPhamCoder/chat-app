@@ -8,11 +8,11 @@ const Navbar = () => {
 
     return (
         <div className='navbar'>
-            <span className='logo'>Fun Chat</span>
+            <span className='logo'>PChat v1</span>
             <div className='user'>
                 <img src={currentUser.photoURL} alt="" />
                 <span>{currentUser.displayName}</span>
-                <button onClick={() => signOut(auth)}>logout</button>
+                <button onClick={() => signOut(auth)}>Đăng xuất</button>
             </div>
         </div>
     )

@@ -1,11 +1,30 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithRedirect } from "firebase/auth";
 import { auth } from '../firebase';
+// import { GoogleAuthProvider } from "firebase/auth";
+// import { AuthContext } from '../context/AuthContext';
 
 const Login = () => {
     const [err, setErr] = useState(false);
     const navigate = useNavigate();
+
+    // const { user } = useContext(AuthContext);
+
+    // const handleLoginWithGoogle = async () => {
+    //     const provider = new GoogleAuthProvider();
+
+    //     const res = await signInWithRedirect(auth, provider);
+    //     console.log({ res })
+
+    //     if (user) {
+    //         navigate("/")
+    //     }
+    // }
+
+    // if (user?.uid) {
+    //     navigate("/login")
+    // }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,15 +41,23 @@ const Login = () => {
     return (
         <div className='formContainer'>
             <div className="formWrapper">
-                <h2 className='logo'>Chat App</h2>
-                <span className='title'>Register</span>
+                <h2 className='logo'>PChat</h2>
+                <span className='title'>Đăng nhập tài khoản</span>
+                {/* <div className='d-flex mx-auto'>
+                    <button
+                        variant="contained"
+                        onClick={handleLoginWithGoogle}
+                    >
+                        Login with Google
+                    </button>
+                </div> */}
                 <form onSubmit={handleSubmit}>
-                    <input type="email" placeholder='email' />
-                    <input type="password" placeholder='password' />
+                    <input type="email" placeholder='Email' />
+                    <input type="password" placeholder='Mật khẩu' />
                     <button className='btn btn-primary fw-bold'>Đăng nhập</button>
                     {err && <span>Xảy ra sự cố</span>}
                 </form>
-                <p>You do have an account? <Link to="/register">Register</Link></p>
+                <p>Bạn có tài khoản chưa? <Link to="/register" className='text-decoration-none'>Đăng ký</Link></p>
             </div>
         </div>
     )
